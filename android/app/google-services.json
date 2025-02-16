@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "518607947838",
+    "firebase_url": "https://saron-app-1ea19-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "saron-app-1ea19",
+    "storage_bucket": "saron-app-1ea19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518607947838:android:608212879835a716fe696f",
+        "android_client_info": {
+          "package_name": "app.saron.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518607947838-ih5pjhfvb2trkf7f67i7411bvuhoabbh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB445i5gH-UuCt3tEiLtJpm71Xm2YCf_Rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518607947838-ih5pjhfvb2trkf7f67i7411bvuhoabbh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "518607947838-6gaecroabsnrir9i5qap3akg0olhdp05.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.saron.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
