@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -11,9 +10,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smart_controller/constant/constant.dart';
 import 'package:smart_controller/controller/userStateController.dart';
 import 'package:smart_controller/controller/widget_controller.dart';
-import 'package:smart_controller/landing.dart';
 import 'package:smart_controller/model/motoModel.dart';
-import 'package:smart_controller/views/add_devices.dart';
 
 class ChooseMotorScreen extends StatefulWidget {
   const ChooseMotorScreen({super.key});
@@ -101,7 +98,7 @@ class DeviceGridItem extends StatelessWidget {
   final MotorModel device;
   final userState = Get.find<UserStateController>();
 
-  DeviceGridItem({required this.device});
+  DeviceGridItem({super.key, required this.device});
 
   @override
   Widget build(BuildContext context) {

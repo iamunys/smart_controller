@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>518607947838-6gaecroabsnrir9i5qap3akg0olhdp05.apps.googleusercontent.com</string>
+	<string>709479408697-jk16qpov0a72v1bi9rds1i2i58m7s4fn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.518607947838-6gaecroabsnrir9i5qap3akg0olhdp05</string>
+	<string>com.googleusercontent.apps.709479408697-jk16qpov0a72v1bi9rds1i2i58m7s4fn</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAqmAxciZjU8CUjpQgYAIFoxUVE-DpVw_0</string>
+	<string>AIzaSyCKJ6eQpZ4egCeRxH_N8MxCEOxWlacB4yM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>518607947838</string>
+	<string>709479408697</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>app.saron.com</string>
 	<key>PROJECT_ID</key>
-	<string>saron-app-1ea19</string>
+	<string>motocon-v3-iot</string>
 	<key>STORAGE_BUCKET</key>
-	<string>saron-app-1ea19.appspot.com</string>
+	<string>motocon-v3-iot.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:518607947838:ios:037e88b6445d0e13fe696f</string>
+	<string>1:709479408697:ios:6bd1d0d1f77f35057dd9e8</string>
 	<key>DATABASE_URL</key>
-	<string>https://saron-app-1ea19-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+	<string>https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

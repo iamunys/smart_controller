@@ -8,7 +8,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smart_controller/constant/constant.dart';
 import 'package:smart_controller/controller/userStateController.dart';
 import 'package:smart_controller/controller/widget_controller.dart';
-import 'package:smart_controller/views/listMotorDevice.dart';
 import 'package:smart_controller/widgets/utilis.dart';
 
 class AddADevice extends StatefulWidget {
@@ -232,7 +231,7 @@ class _AddADeviceState extends State<AddADevice> {
       'onTime2': '',
       'onTime3': '',
       'power': 0,
-      'pumpingTime': 0,
+      'todayPumpingTime': 0,
       'sumpStatus': '',
       'timer1Done': 0,
       'timer2Done': 0,

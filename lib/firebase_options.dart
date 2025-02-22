@@ -50,21 +50,23 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB445i5gH-UuCt3tEiLtJpm71Xm2YCf_Rk',
-    appId: '1:518607947838:android:608212879835a716fe696f',
-    messagingSenderId: '518607947838',
-    projectId: 'saron-app-1ea19',
-    databaseURL: 'https://saron-app-1ea19-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'saron-app-1ea19.appspot.com',
+    apiKey: 'AIzaSyCcsHbwoPA4xYgjoKW_tiZZ5C7J3V75nns',
+    appId: '1:709479408697:android:5c4122ae908503b37dd9e8',
+    messagingSenderId: '709479408697',
+    projectId: 'motocon-v3-iot',
+    databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'motocon-v3-iot.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAqmAxciZjU8CUjpQgYAIFoxUVE-DpVw_0',
-    appId: '1:518607947838:ios:037e88b6445d0e13fe696f',
-    messagingSenderId: '518607947838',
-    projectId: 'saron-app-1ea19',
-    databaseURL: 'https://saron-app-1ea19-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'saron-app-1ea19.appspot.com',
+    apiKey: 'AIzaSyCKJ6eQpZ4egCeRxH_N8MxCEOxWlacB4yM',
+    appId: '1:709479408697:ios:6bd1d0d1f77f35057dd9e8',
+    messagingSenderId: '709479408697',
+    projectId: 'motocon-v3-iot',
+    databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'motocon-v3-iot.firebasestorage.app',
+    iosClientId: '709479408697-jk16qpov0a72v1bi9rds1i2i58m7s4fn.apps.googleusercontent.com',
     iosBundleId: 'app.saron.com',
   );
+
 }

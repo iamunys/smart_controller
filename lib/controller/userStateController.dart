@@ -8,14 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_controller/controller/Exceptions.dart';
 import 'package:smart_controller/controller/widget_controller.dart';
-import 'package:smart_controller/landing.dart';
 import 'package:smart_controller/main.dart';
 import 'package:smart_controller/services/firebaseAuthServices.dart';
 import 'package:smart_controller/views/Auth/loginScreen.dart';
-import 'package:smart_controller/views/HomeScreen.dart';
-import 'package:smart_controller/views/listMotorDevice.dart';
-import 'package:smart_controller/views/select_device.dart';
-import 'package:smart_controller/views/testingfb.dart';
 import 'package:smart_controller/widgets/utilis.dart';
 
 class UserStateController extends GetxController {
@@ -92,6 +87,7 @@ class UserStateController extends GetxController {
   }
 
   verifyPhoneErrorCallback(firebase.FirebaseAuthException e) {
+    print(e);
     if (e.code == 'invalid-phone-number') {
       mobileVerificationError = 'The provided phone number is not valid.';
     } else {
@@ -144,7 +140,9 @@ class UserStateController extends GetxController {
           Get.find<WidgetsController>().splashCompleteListDevice = true;
         }
       } catch (e) {
-        print('Error checking/creating ID: $e');
+        if (kDebugMode) {
+          print('Error checking/creating ID: $e');
+        }
       }
     }
   }
