@@ -7,9 +7,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smart_controller/constant/constant.dart';
 import 'package:smart_controller/controller/userStateController.dart';
 import 'package:smart_controller/controller/widget_controller.dart';
-import 'package:smart_controller/views/Auth/loginScreen.dart';
+import 'package:smart_controller/views/AuthScreens/loginHome.dart';
 import 'package:smart_controller/views/listMotorDevice.dart';
-import 'package:smart_controller/views/select_device.dart';
+import 'package:smart_controller/views/select_category.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,11 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
         init: WidgetsController(),
         builder: (controller) {
           if (controller.splashCompleteListDevice) {
-            return const ChooseMotorScreen();
+            return const ListDeviceScreen();
           } else if (controller.splashCompleteLogin) {
-            return const LoginScreen();
+            return const LoginHomeScreen();
           } else if (controller.splashCompleteSelectDevice) {
-            return const SelectDevice();
+            return const SelectCategory();
           } else {
             return Scaffold(
               backgroundColor: Constant.bgSecondary,

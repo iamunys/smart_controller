@@ -3,17 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:smart_controller/constant/constant.dart';
 
-class MutationControlls extends GetxController {
-  late MutationStatus _status = MutationStatus.initial;
-
-  MutationStatus get status => _status;
-
-  set status(MutationStatus value) {
-    _status = value;
-    update();
-  }
-}
-
 class MutationLoader extends StatelessWidget {
   const MutationLoader({super.key});
 
@@ -27,5 +16,3 @@ class MutationLoader extends StatelessWidget {
     );
   }
 }
-
-enum MutationStatus { initial, loading, done, error }

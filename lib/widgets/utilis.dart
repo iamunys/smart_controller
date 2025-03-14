@@ -2,10 +2,51 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smart_controller/constant/constant.dart';
+import 'package:smart_controller/main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Utilis {
+  static void launchWhatsApp({required String message}) async {
+    final currentContext = NavigationService.currentContext;
+
+    Uri url =
+        Uri.parse(Uri.encodeFull('https://wa.me/918111888934?text=$message'));
+    await canLaunchUrl(url)
+        ? launchUrl(url)
+        : snackBar(
+            context: currentContext,
+            title: 'Something went wrong',
+            message: 'Please try again later! 0r connect with us on 8590120729',
+          );
+  }
+
+  static backButton({required BuildContext context}) {
+    return InkWell(
+      hoverColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () => context.pop(),
+      child: Container(
+        decoration: const BoxDecoration(
+            color: Constant.bgSecondary,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                bottomRight: Radius.circular(30))),
+        child: Center(
+          child: Icon(
+            Icons.arrow_back_outlined,
+            color: Constant.bgWhite,
+            size: 20.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
   static showAlertDialog(
       {required BuildContext context,
       required String title,
@@ -19,7 +60,8 @@ class Utilis {
       child: Constant.textWithStyle(
           textAlign: TextAlign.center,
           text: button1name,
-          size: 15.sp,
+          size: 16.sp,
+          fontWeight: FontWeight.w600,
           color: Constant.textPrimary),
       onPressed: () {
         context.pop();
@@ -29,7 +71,8 @@ class Utilis {
       child: Constant.textWithStyle(
           textAlign: TextAlign.center,
           text: button2name,
-          size: 15.sp,
+          size: 16.sp,
+          fontWeight: FontWeight.w600,
           color: Constant.textPrimary),
       onPressed: () {
         button2onpress();
@@ -38,6 +81,7 @@ class Utilis {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
+      backgroundColor: Constant.bgPrimary,
       actionsAlignment: MainAxisAlignment.center,
       title: Constant.textWithStyle(
           textAlign: TextAlign.center,
@@ -80,15 +124,16 @@ class Utilis {
           children: [
             Constant.textWithStyle(
               text: title,
-              size: 14.sp,
-              fontWeight: FontWeight.w600,
+              size: 16.sp,
+              fontWeight: FontWeight.w700,
               maxLine: 2,
               color: failure ? Constant.bgRed : Constant.bgGreen,
             ),
+            SizedBox(height: .5.h),
             Constant.textWithStyle(
               text: message,
-              size: 13.sp,
-              fontWeight: FontWeight.normal,
+              size: 15.sp,
+              fontWeight: FontWeight.w600,
               maxLine: 3,
               color: Constant.textPrimary,
             ),
@@ -117,7 +162,7 @@ class Utilis {
       child: Constant.textWithStyle(
         text: "Press again to exit",
         color: Constant.bgPrimary,
-        size: 15.sp,
+        size: 16.sp,
       ),
     ),
   );
@@ -159,5 +204,21 @@ class Utilis {
             fontWeight: FontWeight.w500),
       ),
     );
+  }
+
+  static String formatTime(String timeString) {
+    if (timeString.length == 3) {
+      int hours = int.parse(timeString.substring(0, 1));
+      int minutes = int.parse(timeString.substring(1, 3));
+      DateTime dateTime = DateTime(2023, 1, 1, hours, minutes); // Dummy date
+      return DateFormat('hh:mm a').format(dateTime);
+    }
+    if (timeString.length == 4) {
+      int hours = int.parse(timeString.substring(0, 2));
+      int minutes = int.parse(timeString.substring(2, 4));
+      DateTime dateTime = DateTime(2023, 1, 1, hours, minutes); // Dummy date
+      return DateFormat('hh:mm a').format(dateTime);
+    }
+    return 'Invalid Time';
   }
 }

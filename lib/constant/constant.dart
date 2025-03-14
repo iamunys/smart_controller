@@ -9,8 +9,10 @@ class Constant {
   static const Color textPrimary = Color.fromARGB(255, 41, 41, 41);
   static const Color textSecondary = Color.fromARGB(255, 116, 116, 116);
 
-  static const Color bgGreen = Color.fromARGB(255, 0, 143, 21);
-  static const Color bgRed = Color.fromARGB(255, 188, 59, 59);
+  static const Color bgGreen = Color(0xFF4CAF50);
+  static const Color bgRed = Color(0xFFF44336);
+  static const Color bgOrange = Color.fromARGB(255, 255, 140, 0);
+
   static const Color bgWhite = Color.fromARGB(255, 255, 255, 255);
   static const Color bgBlue = Color.fromARGB(255, 0, 170, 255);
 
@@ -31,13 +33,13 @@ class Constant {
       overflow: TextOverflow.ellipsis,
       maxLines: maxLine,
       style: TextStyle(
-        shadows: shadow,
-        color: color,
-        fontSize: size,
-        fontWeight: fontWeight,
-        fontStyle: fontStyle,
-        letterSpacing: fontSpacing,
-      ),
+          shadows: shadow,
+          color: color,
+          fontSize: size,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle,
+          letterSpacing: fontSpacing,
+          fontFamily: 'Nunito'),
     );
   }
 }

@@ -36,7 +36,7 @@ class EnergyConsume extends StatelessWidget {
               height: .5.h,
             ),
             Constant.textWithStyle(
-                text: '$energy kwh', size: 15.sp, color: Constant.bgSecondary),
+                text: '$energy kwh', size: 16.sp, color: Constant.bgSecondary),
           ],
         ));
   }

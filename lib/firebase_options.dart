@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -49,9 +40,20 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBF3pOxLvf4ogM4BOWJdT7pwdsy0N9nnxE',
+    appId: '1:709479408697:web:b63c581567353eaf7dd9e8',
+    messagingSenderId: '709479408697',
+    projectId: 'motocon-v3-iot',
+    authDomain: 'motocon-v3-iot.firebaseapp.com',
+    databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'motocon-v3-iot.firebasestorage.app',
+    measurementId: 'G-1ZVY9X54PD',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCcsHbwoPA4xYgjoKW_tiZZ5C7J3V75nns',
-    appId: '1:709479408697:android:5c4122ae908503b37dd9e8',
+    appId: '1:709479408697:android:b49f819c29cfe5187dd9e8',
     messagingSenderId: '709479408697',
     projectId: 'motocon-v3-iot',
     databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
@@ -60,13 +62,37 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCKJ6eQpZ4egCeRxH_N8MxCEOxWlacB4yM',
-    appId: '1:709479408697:ios:6bd1d0d1f77f35057dd9e8',
+    appId: '1:709479408697:ios:5e0d1740077658bc7dd9e8',
     messagingSenderId: '709479408697',
     projectId: 'motocon-v3-iot',
     databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'motocon-v3-iot.firebasestorage.app',
-    iosClientId: '709479408697-jk16qpov0a72v1bi9rds1i2i58m7s4fn.apps.googleusercontent.com',
-    iosBundleId: 'app.saron.com',
+    androidClientId: '709479408697-jpr9ncj4l1jub6d1nloa43llk7hlttkq.apps.googleusercontent.com',
+    iosClientId: '709479408697-bok5bual6smju71s7esoai7unu0egg3u.apps.googleusercontent.com',
+    iosBundleId: 'app.saronsmart.com',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCKJ6eQpZ4egCeRxH_N8MxCEOxWlacB4yM',
+    appId: '1:709479408697:ios:5e0d1740077658bc7dd9e8',
+    messagingSenderId: '709479408697',
+    projectId: 'motocon-v3-iot',
+    databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'motocon-v3-iot.firebasestorage.app',
+    androidClientId: '709479408697-jpr9ncj4l1jub6d1nloa43llk7hlttkq.apps.googleusercontent.com',
+    iosClientId: '709479408697-bok5bual6smju71s7esoai7unu0egg3u.apps.googleusercontent.com',
+    iosBundleId: 'app.saronsmart.com',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBF3pOxLvf4ogM4BOWJdT7pwdsy0N9nnxE',
+    appId: '1:709479408697:web:42b0052d7dcc4bef7dd9e8',
+    messagingSenderId: '709479408697',
+    projectId: 'motocon-v3-iot',
+    authDomain: 'motocon-v3-iot.firebaseapp.com',
+    databaseURL: 'https://motocon-v3-iot-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'motocon-v3-iot.firebasestorage.app',
+    measurementId: 'G-8GL7MD105J',
   );
 
 }

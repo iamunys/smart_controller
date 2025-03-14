@@ -4,6 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:smart_controller/constant/constant.dart';
 
 class CounterStatusWidget extends StatefulWidget {
   final String motorId;
@@ -29,10 +31,11 @@ class _CounterStatusWidgetState extends State<CounterStatusWidget> {
 
   void _setupCounterStream() {
     DatabaseReference counterRef =
-        FirebaseDatabase.instance.ref('deviceStatus/${widget.motorId}/counter');
+        FirebaseDatabase.instance.ref('dS/${widget.motorId}/cNT');
 
+    // Listen to counter updates from Firebase
     _counterSubscription = counterRef.onValue.listen((event) {
-      if (!mounted) return; // Prevent calling setState after dispose
+      if (!mounted) return;
 
       final data = event.snapshot.value;
       int? parsedCounter;
@@ -47,13 +50,13 @@ class _CounterStatusWidgetState extends State<CounterStatusWidget> {
         setState(() {
           _currentCounter = parsedCounter;
           _lastUpdateTime = DateTime.now();
-          _checkCounterStatus();
+          _isCounterActive = true; // Set to online as soon as new data arrives
         });
       }
     });
 
-    // Periodic timer to check counter status
-    _statusCheckTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+    // Check counter status every 1 second
+    _statusCheckTimer = Timer.periodic(const Duration(seconds: 4), (_) {
       if (mounted) {
         _checkCounterStatus();
       }
@@ -63,47 +66,42 @@ class _CounterStatusWidgetState extends State<CounterStatusWidget> {
   void _checkCounterStatus() {
     if (_lastUpdateTime != null) {
       final timeSinceLastUpdate = DateTime.now().difference(_lastUpdateTime!);
-
+      print(timeSinceLastUpdate.inSeconds);
       if (mounted) {
         setState(() {
-          _isCounterActive = timeSinceLastUpdate.inSeconds < 2;
+          _isCounterActive = timeSinceLastUpdate.inSeconds < 5;
         });
+        // print(_isCounterActive);
       }
     }
   }
 
   @override
   void dispose() {
-    _counterSubscription?.cancel(); // Cancel Firebase listener
-    _statusCheckTimer?.cancel(); // Cancel the periodic timer
+    _counterSubscription?.cancel();
+    _statusCheckTimer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
-        Row(
-          children: [
-            Container(
-              width: 10,
-              height: 10,
-              decoration: BoxDecoration(
-                color: _isCounterActive ? Colors.green : Colors.red,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              _isCounterActive ? 'Online' : 'Offline',
-              style: TextStyle(
-                color: _isCounterActive ? Colors.green : Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+        Container(
+          width: 7,
+          height: 7,
+          decoration: BoxDecoration(
+            color: _isCounterActive ? Colors.green : Colors.red,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 3),
+        Constant.textWithStyle(
+          fontWeight: FontWeight.w700,
+          text: _isCounterActive ? 'Online' : 'Offline',
+          size: 15.sp,
+          color: _isCounterActive ? Constant.bgGreen : Constant.bgRed,
+          textAlign: TextAlign.center,
         ),
       ],
     );

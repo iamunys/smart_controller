@@ -4,10 +4,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smart_controller/constant/constant.dart';
 import 'package:smart_controller/controller/userStateController.dart';
-import 'package:smart_controller/controller/widget_controller.dart';
 import 'package:smart_controller/widgets/utilis.dart';
 
 class AddADevice extends StatefulWidget {
@@ -34,7 +34,6 @@ class _AddADeviceState extends State<AddADevice> {
 
   @override
   void initState() {
-    print("Hi");
     super.initState();
   }
 
@@ -144,7 +143,7 @@ class _AddADeviceState extends State<AddADevice> {
                 'Connect',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -173,15 +172,13 @@ class _AddADeviceState extends State<AddADevice> {
   }
 
   Future<void> _processDeviceConnection() async {
-    final ref =
-        FirebaseDatabase.instance.ref('deviceStatus/${_motorController.text}');
+    final ref = FirebaseDatabase.instance.ref('dS/${_motorController.text}');
     final snapshot = await ref.get();
 
     if (snapshot.exists) {
-      final data = Map<String, dynamic>.from(snapshot.value as Map);
-      print(data);
-      print(data['userId']);
-      print(_userState.userId);
+      // final data = Map<String, dynamic>.from(snapshot.value as Map);
+      // print(data['userId']);
+      // print(_userState.userId);
       await _handleExistingDevice(snapshot);
     } else {
       await _createNewDevice(ref);
@@ -191,16 +188,12 @@ class _AddADeviceState extends State<AddADevice> {
   Future<void> _handleExistingDevice(DataSnapshot snapshot) async {
     final data = Map<String, dynamic>.from(snapshot.value as Map);
 
-    if (data['userId'] == _userState.userId) {
-      await _userState.setStringPreference('motorId', _motorController.text);
+    if (data['uI'] == _userState.userId) {
       Utilis.snackBar(
           context: context,
           title: 'Device Connected',
           message: 'Your device is now connected',
           failure: false);
-      Get.find<WidgetsController>().splashCompleteLogin = false;
-      Get.find<WidgetsController>().splashCompleteSelectDevice = false;
-      Get.find<WidgetsController>().splashCompleteListDevice = true;
       context.pop();
     } else {
       Utilis.snackBar(
@@ -213,48 +206,51 @@ class _AddADeviceState extends State<AddADevice> {
 
   Future<void> _createNewDevice(DatabaseReference deviceRef) async {
     await deviceRef.set({
-      'deviceName': _motorNameController.text,
-      'counter': 0,
-      'createdAt': DateTime.now().toString(),
-      'currentValue': 0,
-      'drySensor': '0',
-      'enableTimer1': 0,
-      'enableTimer2': 0,
-      'enableTimer3': 0,
-      'energy': 0,
-      'motorControl': 0,
-      'motorStatus': 0,
-      'onDuration1': '',
-      'onDuration2': '',
-      'onDuration3': '',
-      'onTime1': '',
-      'onTime2': '',
-      'onTime3': '',
-      'power': 0,
-      'todayPumpingTime': 0,
-      'sumpStatus': '',
-      'timer1Done': 0,
-      'timer2Done': 0,
-      'timer3Done': 0,
-      'userId': _userState.userId,
-      'voltage': 0,
-      'waterLevel': '',
-      'Last60Daysusage': 0.0,
+      'dN': _motorNameController.text,
+      'cNT': 0,
+      'cA': DateTime.now().toString(),
+      'cV': 0,
+      'dS': 0,
+      'eT1': 0,
+      'eT2': 0,
+      'eT3': 0,
+      'eG': 0,
+      'mC': 0,
+      'mS': 0,
+      'oD1': 15,
+      'oD2': 15,
+      'oD3': 15,
+      'oT1': 600,
+      'oT2': 600,
+      'oT3': 600,
+      'pW': 0,
+      'tPT': 0,
+      'sS': '',
+      't1D': 0,
+      't2D': 0,
+      't3D': 0,
+      'uIds': {_userState.userEmailId!.split(".")[0]: true},
+      'uI': _userState.userId,
+      'vT': 0,
+      'wL': '',
+      'l60': 0,
+      'lU': DateFormat('hh:mm a dd-MM-yyyy').format(DateTime.now()),
+      'aOF': 0
     });
 
-    await _database.child('energyConsuming/${_motorController.text}').set({
-      'totalEnergyConsumed': 0.0,
+    await _database.child('eC/${_motorController.text}').set({
+      'tEC': 0.0,
     });
 
-    await _userState.setStringPreference('motorId', _motorController.text);
     Utilis.snackBar(
         context: context,
         title: 'New Device Created',
         message: 'Device registered successfully',
         failure: false);
-    Get.find<WidgetsController>().splashCompleteLogin = false;
-    Get.find<WidgetsController>().splashCompleteSelectDevice = false;
-    Get.find<WidgetsController>().splashCompleteListDevice = true;
+
+    // Get.find<WidgetsController>().splashCompleteLogin = false;
+    // Get.find<WidgetsController>().splashCompleteSelectDevice = false;
+    // Get.find<WidgetsController>().splashCompleteListDevice = true;
     context.pop();
   }
 }

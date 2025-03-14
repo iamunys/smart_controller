@@ -1,35 +1,36 @@
 class MotorModel {
   final String deviceId;
+  final String lastUpdate;
   final String deviceName;
-  final int motorControl;
-  final int motorStatus;
-  final String userId;
-  final String energyConsume;
+  final double motorControl;
+  final double motorStatus;
+  final double energyConsume;
   final String waterLevel;
-  final String current;
-  final String power;
-  final String voltage;
-  final String pumpingTime;
-  // Add other fields as needed
-  final int enableTimer1;
-  final int enableTimer2;
-  final int enableTimer3;
-  final String onTime1;
-  final String onTime2;
-  final String onTime3;
-  final String onDuration1;
-  final String onDuration2;
-  final String onDuration3;
-  final int timer1Done;
-  final int timer2Done;
-  final int timer3Done;
+  final double current;
+  final double power;
+  final double voltage;
+  final double pumpingTime;
+  final double enableTimer1;
+  final double enableTimer2;
+  final double enableTimer3;
+  final double onTime1;
+  final double onTime2;
+  final double onTime3;
+  final double onDuration1;
+  final double onDuration2;
+  final double onDuration3;
+  final double timer1Done;
+  final double timer2Done;
+  final double timer3Done;
+  final double last60Daysusage;
+  final double autoOffTimer;
 
   MotorModel(
       {required this.deviceId,
+      required this.lastUpdate,
       required this.deviceName,
       required this.motorControl,
       required this.motorStatus,
-      required this.userId,
       required this.waterLevel,
       required this.energyConsume,
       required this.current,
@@ -47,33 +48,65 @@ class MotorModel {
       required this.onDuration3,
       required this.timer1Done,
       required this.timer2Done,
-      required this.timer3Done});
+      required this.timer3Done,
+      required this.last60Daysusage,
+      required this.autoOffTimer});
 
   factory MotorModel.fromMap(String deviceId, Map<dynamic, dynamic> map) {
     return MotorModel(
       deviceId: deviceId,
-      deviceName: map['deviceName'] ?? '',
-      motorControl: map['motorControl'] ?? 0,
-      motorStatus: map['motorStatus'] ?? 0,
-      userId: map['userId'] ?? '',
-      waterLevel: (map['waterLevel'] as String?) ?? 'low',
-      energyConsume: map['energy']?.toString() ?? '0',
-      current: map['currentValue']?.toString() ?? '0',
-      power: map['power']?.toString() ?? '0',
-      voltage: map['voltage']?.toString() ?? '0',
-      pumpingTime: map['pumpingTime']?.toString() ?? '0',
-      enableTimer1: map['enableTimer1'] ?? 0,
-      enableTimer2: map['enableTimer2'] ?? 0,
-      enableTimer3: map['enableTimer3'] ?? 0,
-      onTime1: map['onTime1']?.toString() ?? '0',
-      onTime2: map['onTime2']?.toString() ?? '0',
-      onTime3: map['onTime3']?.toString() ?? '0',
-      onDuration1: map['onDuration1']?.toString() ?? '0',
-      onDuration2: map['onDuration2']?.toString() ?? '0',
-      onDuration3: map['onDuration3']?.toString() ?? '0',
-      timer1Done: map['timer1Done'] ?? 0,
-      timer2Done: map['timer2Done'] ?? 0,
-      timer3Done: map['timer3Done'] ?? 0,
+      lastUpdate: map['lU'] ?? '',
+      deviceName: map['dN'] ?? '',
+      motorControl: (map['mC'] ?? 0).toDouble(),
+      motorStatus: (map['mS'] ?? 0).toDouble(),
+      waterLevel: (map['wL'] as String?) ?? 'low',
+      energyConsume: (map['eG'] ?? 0).toDouble(),
+      current: (map['cV'] ?? 0).toDouble(),
+      power: (map['pW'] ?? 0).toDouble(),
+      voltage: (map['vT'] ?? 0).toDouble(),
+      pumpingTime: (map['pT'] ?? 0).toDouble(),
+      enableTimer1: (map['eT1'] ?? 0).toDouble(),
+      enableTimer2: (map['eT2'] ?? 0).toDouble(),
+      enableTimer3: (map['eT3'] ?? 0).toDouble(),
+      onTime1: (map['oT1'] ?? 0).toDouble(),
+      onTime2: (map['oT2'] ?? 0).toDouble(),
+      onTime3: (map['oT3'] ?? 0).toDouble(),
+      onDuration1: (map['oD1'] ?? 0).toDouble(),
+      onDuration2: (map['oD2'] ?? 0).toDouble(),
+      onDuration3: (map['oD3'] ?? 0).toDouble(),
+      timer1Done: (map['t1D'] ?? 0).toDouble(),
+      timer2Done: (map['t2D'] ?? 0).toDouble(),
+      timer3Done: (map['t3D'] ?? 0).toDouble(),
+      last60Daysusage: (map['l60'] ?? 0).toDouble(),
+      autoOffTimer: (map['aOF'] ?? 0).toDouble(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'deviceId': deviceId,
+      'lastUpdate': lastUpdate,
+      'deviceName': deviceName,
+      'enableTimer1': enableTimer1,
+      'enableTimer2': enableTimer2,
+      'enableTimer3': enableTimer3,
+      'motorControl': motorControl,
+      'motorStatus': motorStatus,
+      'onDuration1': onDuration1,
+      'onDuration2': onDuration2,
+      'onDuration3': onDuration3,
+      'onTime1': onTime1,
+      'onTime2': onTime2,
+      'onTime3': onTime3,
+      'power': power,
+      'pumpingTime': pumpingTime,
+      'timer1Done': timer1Done,
+      'timer2Done': timer2Done,
+      'timer3Done': timer3Done,
+      'voltage': voltage,
+      'waterLevel': waterLevel,
+      'last60Daysusage': last60Daysusage,
+      'aOF': autoOffTimer
+    };
   }
 }

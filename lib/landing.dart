@@ -2,29 +2,38 @@ import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:smart_controller/constant/constant.dart';
 import 'package:smart_controller/controller/widget_controller.dart';
-import 'package:smart_controller/views/HomeScreen.dart';
+import 'package:smart_controller/views/landing/HomeScreen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:smart_controller/views/energy_consuption.dart';
-import 'package:smart_controller/views/profile_screen.dart';
+import 'package:smart_controller/views/landing/energy_consumption.dart';
+import 'package:smart_controller/views/landing/profile_screen.dart';
 
 class LandingScreen extends StatefulWidget {
-  const LandingScreen({super.key});
+  final String motorId;
+  const LandingScreen({super.key, required this.motorId});
 
   @override
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
+List<Widget> buildBody = []; // Declare the list without initializing
+
 class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
+
+    buildBody = [
+      HomeScreen(motorId: widget.motorId), // ✅ Now 'widget' can be accessed
+      EnergyConsumption(motorId: widget.motorId),
+      ProfileScreen(motorId: widget.motorId),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.bgSecondary,
+      backgroundColor: Constant.bgPrimary,
       bottomNavigationBar: GetBuilder<WidgetsController>(
           init: WidgetsController(),
           builder: (wid) {
@@ -90,14 +99,8 @@ class _LandingScreenState extends State<LandingScreen> {
       body: GetBuilder<WidgetsController>(
           init: WidgetsController(),
           builder: (wid) {
-            return _buildBody[wid.bottomNavIndex];
+            return buildBody[wid.bottomNavIndex];
           }),
     );
   }
-
-  final _buildBody = const [
-    HomeScreen(),
-    EnergyConsumption(),
-    ProfileScreen(),
-  ];
 }

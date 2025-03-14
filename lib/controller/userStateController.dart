@@ -1,16 +1,14 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_controller/controller/Exceptions.dart';
 import 'package:smart_controller/controller/widget_controller.dart';
 import 'package:smart_controller/main.dart';
 import 'package:smart_controller/services/firebaseAuthServices.dart';
-import 'package:smart_controller/views/Auth/loginScreen.dart';
 import 'package:smart_controller/widgets/utilis.dart';
 
 class UserStateController extends GetxController {
@@ -22,6 +20,7 @@ class UserStateController extends GetxController {
   bool _isLoading = false;
   User? currentUser;
   String? userId;
+  String? userEmailId;
 
   @override
   void onInit() {
@@ -87,7 +86,7 @@ class UserStateController extends GetxController {
   }
 
   verifyPhoneErrorCallback(firebase.FirebaseAuthException e) {
-    print(e);
+    print("Firebase Error: ${e.code} - ${e.message}");
     if (e.code == 'invalid-phone-number') {
       mobileVerificationError = 'The provided phone number is not valid.';
     } else {
@@ -113,6 +112,36 @@ class UserStateController extends GetxController {
     }
   }
 
+  verifyGoogle() async {
+    try {
+      await FirebaseAuthentication.signInWithGoogle();
+      subscribeToAuthChanges();
+    } on UserException catch (e) {
+      mobileVerificationError = e.cause;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      mobileVerificationError =
+          "Could not sign to Google, please try again later!";
+    }
+  }
+
+  verifyAppleLogin() async {
+    try {
+      await FirebaseAuthentication.signInWithApple();
+      subscribeToAuthChanges();
+    } on UserException catch (e) {
+      mobileVerificationError = e.cause;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      mobileVerificationError =
+          "Could not sign to Apple, please try again later!";
+    }
+  }
+
   subscribeToAuthChanges() async {
     currentUser = await FirebaseAuthentication.listenToAuthChange();
     if (currentUser == null) {
@@ -122,23 +151,16 @@ class UserStateController extends GetxController {
       Get.find<WidgetsController>().splashCompleteSelectDevice = false;
       Get.find<WidgetsController>().splashCompleteListDevice = false;
     } else {
-      final DatabaseReference database = FirebaseDatabase.instance.ref();
       userId = currentUser!.uid;
+      userEmailId = currentUser!.email;
       debugPrint('User is loggedIn : ${currentUser?.uid}');
       debugPrint('Firebase Token : ${await currentUser?.getIdToken()}');
       isLoggedIn = true;
 
       try {
-        String? motorId = await getStringPreference('motorId');
-        if (motorId == null) {
-          Get.find<WidgetsController>().splashCompleteLogin = false;
-          Get.find<WidgetsController>().splashCompleteSelectDevice = true;
-          Get.find<WidgetsController>().splashCompleteListDevice = false;
-        } else {
-          Get.find<WidgetsController>().splashCompleteLogin = false;
-          Get.find<WidgetsController>().splashCompleteSelectDevice = false;
-          Get.find<WidgetsController>().splashCompleteListDevice = true;
-        }
+        Get.find<WidgetsController>().splashCompleteLogin = false;
+        Get.find<WidgetsController>().splashCompleteSelectDevice = true;
+        Get.find<WidgetsController>().splashCompleteListDevice = false;
       } catch (e) {
         if (kDebugMode) {
           print('Error checking/creating ID: $e');
@@ -153,22 +175,27 @@ class UserStateController extends GetxController {
     await FirebaseAuthentication.signOut();
     debugPrint('Logout Called');
     isLoggedIn = false;
-    deleteStringPreference('motorId');
-    Get.offAll(const LoginScreen());
+    // deleteStringPreference('motorId');
+    isLoggedIn = false;
+    final currentContext = NavigationService.currentContext;
+    Get.find<WidgetsController>().splashCompleteLogin = true;
+    Get.find<WidgetsController>().splashCompleteSelectDevice = false;
+    Get.find<WidgetsController>().splashCompleteListDevice = false;
+    currentContext.go('/');
   }
 
-  Future<void> setStringPreference(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, value);
-  }
+  // Future<void> setStringPreference(String key, String value) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString(key, value);
+  // }
 
-  Future<String?> getStringPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
-  }
+  // Future<String?> getStringPreference(String key) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(key);
+  // }
 
-  Future<void> deleteStringPreference(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(key);
-  }
+  // Future<void> deleteStringPreference(String key) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.remove(key);
+  // }
 }
